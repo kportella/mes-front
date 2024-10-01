@@ -1,42 +1,128 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #00af87;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+}
+
+.sidebar h1 {
+  color: #fff;
   text-align: center;
+  margin-bottom: 40px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar ul li {
+  padding: 15px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.sidebar ul li:hover {
+  background-color: #009b78;
 }
 
-.card {
-  padding: 2em;
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  display: block;
 }
 
-.read-the-docs {
-  color: #888;
+.sidebar ul li a:hover {
+  color: #e2e2e2;
+}
+
+/* Form Container */
+.register-container {
+  margin-left: 300px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  margin-top: 40px;
+}
+
+.register-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Form Input Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.form-group select {
+  appearance: none;
+  background-color: white;
+}
+
+/* Button Styles */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #00af87;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: black;
+}
+
+.save-btn:hover {
+  background-color: #009b78;
+}
+
+.cancel-btn:hover {
+  background-color: #b3b3b3;
 }
