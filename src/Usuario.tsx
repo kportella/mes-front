@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from "./Sidebar.tsx";
 
-const Register: React.FC = () => {
+const Usuario: React.FC = () => {
     
     const [formData, setFormData] = useState({
         nome: '',
@@ -111,4 +111,4 @@ const Register: React.FC = () => {
     );
 };
 
-export default Register;
+export default Usuario;
