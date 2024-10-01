@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';  // Optional: Include any global styles
-import Login from './Login.tsx';
-import Usuario from "./Usuario.tsx";
-import Sidebar from "./Sidebar.tsx";
+import AppRouter from "./AppRouter.tsx";
 
 const App: React.FC = () => {
     return (
 
         <div className="App">
-            <Usuario/>
+            <AppRouter />
         </div>
     );
 }

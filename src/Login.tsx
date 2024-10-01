@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import * as axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 type LoginFormInputs = {
     email: string;
@@ -10,16 +11,18 @@ type LoginFormInputs = {
 const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
     const [responseMessage, setResponseMessage] = useState<string>('');
+    const navigate = useNavigate();
 
     const onSubmit = (data: LoginFormInputs) => {
         console.log(data);
         // Handle login logic here (e.g., API call)
             
-            axios.default.post('http://localhost:3000/auth/login', data)
-                .then((response) => {
-                    setResponseMessage(`Success! Data submitted: ${JSON.stringify(response.data)}`);
-                })
-                .catch((error) => {setResponseMessage(`Error: ${error.message}`);})
+            // axios.default.post('http://localhost:3000/auth/login', data)
+            //     .then((response) => {
+            //         setResponseMessage(`Success! Data submitted: ${JSON.stringify(response.data)}`);
+            //     })
+            //     .catch((error) => {setResponseMessage(`Error: ${error.message}`);})
+        navigate('/usuario');
     }
 
     return (
