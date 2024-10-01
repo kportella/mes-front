@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from "./Sidebar.tsx";
+import {useNavigate} from "react-router-dom";
 
 const Usuario: React.FC = () => {
+    
+    const navigate = useNavigate();
     
     const [formData, setFormData] = useState({
         nome: '',
@@ -40,6 +43,8 @@ const Usuario: React.FC = () => {
             console.log('Usuário Cadastrado:', formData);
             // Add registration logic here (e.g., API call)
         }
+        
+        navigate('/usuario')
     };
 
     return (

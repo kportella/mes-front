@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import { User } from '../src/User';
 import {prevUsers} from '../src/MockData.ts';
 import Sidebar from "./Sidebar.tsx";
+import {useNavigate} from "react-router-dom";
 
 const ListarUsuarios: React.FC = () => {
 
     const [users, setUsers] = useState(prevUsers);
+    const navigate = useNavigate();
 
 
     const handleStatusToggle = (matricula: string) => {
@@ -15,6 +17,10 @@ const ListarUsuarios: React.FC = () => {
             )
         );
     };
+    
+    const handleButtonClick = () => {
+        navigate('/usuario/registro');
+    }
 
     return (
         <div className="main-content">
@@ -22,7 +28,7 @@ const ListarUsuarios: React.FC = () => {
 
             <div className="header">
                 <h2>Usuários</h2>
-                <button>Novo</button>
+                <button onClick={handleButtonClick}>Novo</button>
             </div>
 
             <h2>Lista de Usuários</h2>
