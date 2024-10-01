@@ -250,6 +250,156 @@ input:checked + .slider:before {
   transform: translateX(20px);
 }
 
+/* Main Content */
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.header button {
+  background-color: #00af87;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header button:hover {
+  background-color: #007b5e;
+}
+
+/* Form Layout */
+.form-section {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.form-group input[type="date"] {
+  width: calc(50% - 10px);
+}
+
+.form-group textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Equipment Section */
+.equipment-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.equipment-section div {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.equipment-section div:last-child {
+  margin-right: 0;
+}
+
+/* Save/Cancel Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.action-buttons button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #00af87;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+}
+
+.save-btn:hover {
+  background-color: #007b5e;
+}
+
+.cancel-btn:hover {
+  background-color: #b3b3b3;
+}
+
+/* Flex container for date fields */
+.form-group.dates {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group.dates div {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.form-group.dates div:last-child {
+  margin-right: 0;
+}
+
+/* Wider date fields */
+.form-group input[type="date"] {
+  width: 100%; /* Make date fields take full width in flex container */
+}
 
 
 

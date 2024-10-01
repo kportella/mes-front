@@ -7,7 +7,7 @@ const Sidebar: React.FC = () => {
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="/usuario">Usuários</a></li>
-                <li><a href="#">Manutenção</a></li>
+                <li><a href="/manutencao">Manutenção</a></li>
                 <li><a href="/login">Logout</a></li>
             </ul>
         </div>
