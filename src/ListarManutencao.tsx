@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Sidebar from "./Sidebar.tsx";
-import {User} from "./User.ts";
 import {useNavigate} from "react-router-dom";
 
 interface MaintenanceOrder {
@@ -10,17 +9,41 @@ interface MaintenanceOrder {
     situacao: string;
 }
 
-const maintenanceOrders: MaintenanceOrder[] = [
-    { identificacao: '1', titulo: 'Maintenance 1', dataAbertura: '2024-09-17', situacao: 'Aberto'},
-    { identificacao: '2', titulo: 'Maintenance 2', dataAbertura: '2024-08-12', situacao: 'Fechado'},
-    // More orders...
-];
-
 const ListarManutencao: React.FC = () => {
 
     const navigate = useNavigate();
-    
-    const handleButtonClick = () => {
+    const [manutencoes, setManutencoes] = useState<MaintenanceOrder[]>([]);
+
+    useEffect(() => {
+        const fetchManutencao = async () => {
+            const token = localStorage.getItem('token');
+
+            try {
+                const response = await fetch('http://localhost:3000/auth/getAllManutencao', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`, // Send token in Authorization header
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch users');
+                }
+
+                const data = await response.json();
+                setManutencoes(data.users); // The users array is inside 'data.users'
+            } catch (error) {
+                console.log(error)
+            }
+        };
+
+        fetchManutencao();
+    }, []);
+
+
+
+        const handleButtonClick = () => {
         navigate('/manutencao/registro');
     }
     
@@ -44,12 +67,12 @@ const ListarManutencao: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {maintenanceOrders.map((maintenanceOrder: MaintenanceOrder) => (
-                    <tr key={maintenanceOrder.identificacao}>
-                        <td>{maintenanceOrder.identificacao}</td>
-                        <td>{maintenanceOrder.titulo}</td>
-                        <td>{maintenanceOrder.dataAbertura}</td>
-                        <td>{maintenanceOrder.situacao}</td>
+                {manutencoes.map((manutencao: MaintenanceOrder) => (
+                    <tr key={manutencao.identificacao}>
+                        <td>{manutencao.identificacao}</td>
+                        <td>{manutencao.titulo}</td>
+                        <td>{manutencao.dataAbertura}</td>
+                        <td>{manutencao.situacao}</td>
                     </tr>
                 ))}
                 </tbody>
