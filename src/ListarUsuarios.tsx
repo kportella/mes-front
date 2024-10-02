@@ -40,19 +40,7 @@ const ListarUsuarios: React.FC = () => {
 
         fetchUsers();
     }, []);
-
-
-        const handleStatusToggle = (id: number) => {
-        setUsers((prevUsers) =>
-            prevUsers.map((user) =>
-                user.id === id ? { ...user, ativo: !user.ativo } : user
-            )
-        );
-        
-        axios.default.post('http://localhost:3000/auth/updateUser', users.findIndex(x => x.id === id))
-            .then(response => {console.log("Usuario Alterado: ",response)})
-        
-    };
+    
     
     const handleButtonClick = () => {
         navigate('/usuario/registro');
