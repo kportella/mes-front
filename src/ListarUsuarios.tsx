@@ -89,7 +89,7 @@ const ListarUsuarios: React.FC = () => {
                     <th>Matricula</th>
                     <th>Email</th>
                     <th>Perfil</th>
-                    <th>Ativo</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -100,16 +100,7 @@ const ListarUsuarios: React.FC = () => {
                         <td>{user.id}</td>
                         <td>{user.email}</td>
                         <td>{user.perfil}</td>
-                        <td>
-                        <label className="switch">
-                            <input
-                                type="checkbox"
-                                checked={user.ativo}
-                                onChange={() => handleStatusToggle(user.id)}
-                            />
-                            <span className="slider"></span>
-                        </label>
-                        </td>
+                        <td>{user.ativo ? 'Ativo' : 'Desativado'}</td>
                         <td>
                             <button className="edit-button" onClick={() => handleEditButtonClick(user.id)}>Atualizar</button>
                         </td>

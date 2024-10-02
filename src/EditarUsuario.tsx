@@ -58,7 +58,11 @@ const EditarUsuario: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        
+        if (name === 'ativo') 
+            setFormData({...formData, [name]: value === "true"});
+        else
+            setFormData({ ...formData, [name]: value });
     };
 
     if (loading) {
@@ -145,7 +149,7 @@ const EditarUsuario: React.FC = () => {
                         <select
                             id="ativo"
                             name="ativo"
-                            value={formData.ativo}
+                            value={formData.ativo.toString()}
                             onChange={handleInputChange}>
                             <option value="" disabled selected>Selecione</option>
                             <option value="true">Sim</option>
