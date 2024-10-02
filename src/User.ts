@@ -1,7 +1,7 @@
 export interface User {
-    matricula: string;
-    nome: string;
+    id: number;
+    name: string;
     email: string;
-    perfil: string;
+    perfil: string | null;
     ativo: boolean;
 }

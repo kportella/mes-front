@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import Sidebar from "./Sidebar.tsx";
 import {useNavigate} from "react-router-dom";
+import * as axios from "axios";
 
 const Usuario: React.FC = () => {
     
     const navigate = useNavigate();
     
     const [formData, setFormData] = useState({
-        nome: '',
+        name: '',
         email: '',
+        password: 'portellakaue@gmail.com',
         perfil: 'Técnico de Manutenção',
         ativo: ''
     });
     
     const [errors, setErrors] = useState({
-        nome: '',
+        name: '',
         email: '',
     });
 
@@ -27,9 +29,9 @@ const Usuario: React.FC = () => {
 
 
     const validateForm = () => {
-        const newErrors = { nome: '', email: '', matricula: '', congelar: '' };
+        const newErrors = { name: '', email: '', matricula: '', congelar: '' };
 
-        if (!formData.nome) newErrors.nome = 'Nome é obrigatório.';
+        if (!formData.name) newErrors.name = 'Nome é obrigatório.';
         if (!formData.email) newErrors.email = 'Email é obrigatório.';
         else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email é inválido.';
         
@@ -40,11 +42,16 @@ const Usuario: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validateForm()) {
-            console.log('Usuário Cadastrado:', formData);
-            // Add registration logic here (e.g., API call)
+                console.log(formData);
+                axios.default.post('http://localhost:3000/auth/register', formData)
+                    .then(response => {
+                        console.log('Usuário Cadastrado:', response.data);
+                        navigate('/usuario')
+                    })
+                    .catch((error) => {console.error('Erro ao registrar usuário:', error);});
+                    
         }
         
-        navigate('/usuario')
     };
 
     return (
@@ -55,15 +62,15 @@ const Usuario: React.FC = () => {
             <h2>Registro de Usuario</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="nome">Nome</label>
+                    <label htmlFor="name">Nome</label>
                     <input
                         type="text"
-                        id="nome"
-                        name="nome"
-                        value={formData.nome}
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleInputChange}
                     />
-                    {errors.nome && <p className="error">{errors.nome}</p>}
+                    {errors.name && <p className="error">{errors.name}</p>}
                 </div>
 
                 <div className="form-group">

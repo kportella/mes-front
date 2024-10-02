@@ -9,6 +9,12 @@ type LoginFormInputs = {
     password: string;
 };
 
+interface Auth {
+    accessToken: string;
+    expiresIn: string;
+    username: string;
+}
+
 const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
     const [responseMessage, setResponseMessage] = useState<string>('');
@@ -16,18 +22,22 @@ const Login: React.FC = () => {
     const { login  } = useAuth();
 
     const onSubmit = (data: LoginFormInputs) => {
-        console.log(data);
-        // Handle login logic here (e.g., API call)
-            
-            // axios.default.post('http://localhost:3000/auth/login', data)
-            //     .then((response) => {
-            //         setResponseMessage(`Success! Data submitted: ${JSON.stringify(response.data)}`);
-            //     })
-            //     .catch((error) => {setResponseMessage(`Error: ${error.message}`);})
+        console.log(data);         
+            axios.default.post<Auth>('http://localhost:3000/auth/login', data)
+                .then((response) => {
+                    setResponseMessage(`Success! Data submitted: ${JSON.stringify(response.data)}`);
+                    console.log(response);
+                    
+                    if (response.status === 201) {
+                        login(response.data.accessToken);
+                        navigate('/usuario');
+                    }
+                    
+                    setResponseMessage(`Error: ${response.data}`);
+                    })
+                .catch((error) => {setResponseMessage(`Error: ${error.message}`);})
 
-        login();
 
-        navigate('/usuario');
     }
 
     return (

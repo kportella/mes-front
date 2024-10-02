@@ -1,27 +1,27 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
-    isLoggedIn: string | null;
-    login: () => void;
+    login: (token : string) => void;
     logout: () => void;
+    accessToken: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('loggedIn'));
+    const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
 
-    const login = () =>{
-        console.log("login");
-        localStorage.setItem("loggedIn", JSON.stringify(true));
-        setIsLoggedIn(JSON.stringify(true));
+    const login = (token: string) =>{
+        console.log(token);
+        localStorage.setItem("accessToken", JSON.stringify(token));
+        setAccessToken(JSON.stringify(token));
     } 
     const logout = () => {
-        setIsLoggedIn(JSON.stringify(false))
+        setAccessToken(null)
     };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+        <AuthContext.Provider value={{ accessToken, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
