@@ -34,8 +34,8 @@ const Login: React.FC = () => {
                     }
                     
                     setResponseMessage(`Error: ${response.data}`);
-                    })
-                .catch((error) => {setResponseMessage(`Error: ${error.message}`);})
+                    })  
+                                    .catch((            error) => {setResponseMessage(`Error: ${error.message}`);})
 
 
     }

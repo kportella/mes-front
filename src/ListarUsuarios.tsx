@@ -58,6 +58,11 @@ const ListarUsuarios: React.FC = () => {
         navigate('/usuario/registro');
     }
 
+    const handleEditButtonClick = (id: number) => {
+        navigate(`/usuario/editar/${id}`);
+    };
+
+
     if (loading) {
         return <div>Loading users...</div>;
     }
@@ -85,6 +90,7 @@ const ListarUsuarios: React.FC = () => {
                     <th>Email</th>
                     <th>Perfil</th>
                     <th>Ativo</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -103,6 +109,9 @@ const ListarUsuarios: React.FC = () => {
                             />
                             <span className="slider"></span>
                         </label>
+                        </td>
+                        <td>
+                            <button className="edit-button" onClick={() => handleEditButtonClick(user.id)}>Atualizar</button>
                         </td>
                     </tr>
                 ))}
