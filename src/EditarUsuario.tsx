@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import * as axios from "axios";
 import {User} from "./User.ts";
-import {AxiosRequestConfig} from "axios";
 
 const EditarUsuario: React.FC = () => {
 
