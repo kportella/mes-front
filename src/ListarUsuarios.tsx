@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import { User } from '../src/User';
 import Sidebar from "./Sidebar.tsx";
 import {useNavigate} from "react-router-dom";
+import * as axios from "axios";
+import usuario from "./Usuario.tsx";
 
 const ListarUsuarios: React.FC = () => {
 
@@ -46,6 +48,10 @@ const ListarUsuarios: React.FC = () => {
                 user.id === id ? { ...user, ativo: !user.ativo } : user
             )
         );
+        
+        axios.default.post('http://localhost:3000/auth/updateUser', users.findIndex(x => x.id === id))
+            .then(response => {console.log("Usuario Alterado: ",response)})
+        
     };
     
     const handleButtonClick = () => {
