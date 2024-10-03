@@ -11,7 +11,7 @@ const EditarManutencao: React.FC = () => {
 
     const navigate = useNavigate();
     
-    const id = useParams()
+    const {id} = useParams()
 
     const [formData, setFormData] = useState({
         id: id, 
@@ -28,37 +28,49 @@ const EditarManutencao: React.FC = () => {
         modelo: 'Premium'
     });
 
+    const parsedObject = (data: any): UserManutencao => {
+        return {
+            id: data.id.toString(),
+            name: data.name
+        }
+    }
+    
+
     const [users, setUsers] = useState<UserManutencao[] | null>([]);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const responseUsuarios = await fetch("http://localhost:3000/auth/getUsersManutencao", {
+                const responseUsuarios = await fetch("http://localhost:3000/auth/getAllUsers", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 });
-                const data = await responseUsuarios.json();
-                console.log(data)
-                setUsers([{id: 1, name: 'Kaue'}, {id: 2, name: 'Guilherme'}]);
+                const dataUsers = await responseUsuarios.json();
+                const users = dataUsers.users.filter(user => user.perfil == 'Técnico de Manutenção');
+                console.log(users)
+                const parsedArray: UserManutencao[] = users.map(parsedObject);
+                console.log(parsedArray)
+                setUsers(parsedArray);
 
-                const responseManutencao = await fetch(`http://localhost:3000/auth/getManutencao/${id}`, {
+                const responseManutencao = await fetch(`http://localhost:3000/maintenance/findAll`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 });
+
                 const dataManutencao = await responseManutencao.json();
-                const manutencao = dataManutencao.manutencao;
-                console.log(dataManutencao)
+                const manutencao = dataManutencao.maintenances.find(manutencao => manutencao.id == id);
+
                 setFormData({
                     id : id, 
                     titulo: manutencao.titulo,
                     descricao: manutencao.descricao,
                     tipoManutencao: manutencao.tipoManutencao,
                     criticidade: manutencao.criticidade,
-                    tecnico: data.select(x => x.id == manutencao.tecnico).name,
+                    tecnico: manutencao.tecnico.name,
                     dataAbertura: manutencao.dataAbertura,
                     dataFechamento: manutencao.dataFechamento,
                     status: manutencao.status,

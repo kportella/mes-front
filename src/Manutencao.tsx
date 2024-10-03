@@ -25,21 +25,32 @@ const Manutencao: React.FC = () => {
         localizacao: 'Setor ABC',
         modelo: 'Premium'
     });
-    
+
+    const parsedObject = (data: any): UserManutencao => {
+        return {
+            id: data.id.toString(),
+            name: data.name
+        }
+    }
+
+
     const [users, setUsers] = useState<UserManutencao[] | null>([]);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch("http://localhost:3000/auth/getUsersManutencao", {
+                const response = await fetch("http://localhost:3000/auth/getAllUsers", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 });
-                const data = await response.json();
-                console.log(data)
-                setUsers([{id: 1, name: 'Kaue'}, {id: 2, name: 'Guilherme'}]);
+                const dataUsers = await response.json();
+                const users = dataUsers.users.filter(user => user.perfil == 'Técnico de Manutenção');
+                console.log(users)
+                const parsedArray: UserManutencao[] = users.map(parsedObject);
+                console.log(parsedArray)
+                setUsers(parsedArray);
             }
             catch (error) {
                 console.log(error);
@@ -61,7 +72,7 @@ const Manutencao: React.FC = () => {
         e.preventDefault();
         
         try{
-            const response = await fetch("http://localhost:3000/registrarManutencao", {
+            const response = await fetch("http://localhost:3000/maintenance/create", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
