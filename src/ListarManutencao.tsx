@@ -13,13 +13,22 @@ const ListarManutencao: React.FC = () => {
 
     const navigate = useNavigate();
     const [manutencoes, setManutencoes] = useState<MaintenanceOrder[]>([]);
+    
+    const parsedObject = (data: any): MaintenanceOrder => {
+        return {
+            identificacao: data.id.toString(),
+            titulo: data.titulo,
+            dataAbertura: data.dataAbertura,
+            situacao: data.status,
+        }
+    }
 
     useEffect(() => {
         const fetchManutencao = async () => {
             const token = localStorage.getItem('token');
 
             try {
-                const response = await fetch('http://localhost:3000/auth/getAllManutencao', {
+                const response = await fetch('http://localhost:3000/maintenance/findAll', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -27,12 +36,17 @@ const ListarManutencao: React.FC = () => {
                     },
                 });
 
+                console.log(response);
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch users');
                 }
 
                 const data = await response.json();
-                setManutencoes(data.users); // The users array is inside 'data.users'
+                console.log(data);
+                
+                const parsedArray: MaintenanceOrder[] = data.maintenances.map(parsedObject);                
+                setManutencoes(parsedArray); // The users array is inside 'data.users'
             } catch (error) {
                 console.log(error)
             }
@@ -60,7 +74,7 @@ const ListarManutencao: React.FC = () => {
                 <button onClick={handleButtonClick}>Novo</button>
             </div>
 
-            <h2>Lista de Usuários</h2>
+            <h2>Lista de Manutenções</h2>
             <table className="user-table">
                 <thead>
                 <tr>
