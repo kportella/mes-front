@@ -43,9 +43,13 @@ const ListarManutencao: React.FC = () => {
 
 
 
-        const handleButtonClick = () => {
+    const handleButtonClick = () => {
         navigate('/manutencao/registro');
     }
+
+    const handleEditButtonClick = (id: number) => {
+        navigate(`/manutencao/editar/${id}`);
+    };
     
     return (
         <div className="main-content">
@@ -64,6 +68,7 @@ const ListarManutencao: React.FC = () => {
                     <th>Titulo</th>
                     <th>Data de Abertura</th>
                     <th>Situacao</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,6 +78,10 @@ const ListarManutencao: React.FC = () => {
                         <td>{manutencao.titulo}</td>
                         <td>{manutencao.dataAbertura}</td>
                         <td>{manutencao.situacao}</td>
+                        <td>
+                            <button className="edit-button" onClick={() => handleEditButtonClick(manutencao.identificacao)}>Atualizar
+                            </button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

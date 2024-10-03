@@ -414,6 +414,72 @@ input:checked + .slider:before {
   background-color: #ae981d;
 }
 
+.dashboard-container {
+  display: flex;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 20px;
+  width: 100%;
+}
+
+h2 {
+  color: #333;
+}
+
+.widgets {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.widget {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.widget:last-child {
+  margin-right: 0;
+}
+
+.equipamentos {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure the width adapts to the content size */
+  margin: 0 auto; /* Center the content horizontally if needed */
+  height: auto; /* Ensure height adjusts based on children */
+}
+
+.active-box, .inactive-box {
+  text-align: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  margin-bottom: 10px; /* Add space between the two boxes */
+  border-radius: 5px;
+  width: 100%; /* Allow width to adapt based on content */
+  box-sizing: border-box; /* Optional: ensure there's a minimum width */
+}
+
+.active-box h2, .inactive-box h2 {
+  margin: 0;
+  font-size: 48px;
+}
+
+.active-box p, .inactive-box p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.inactive-box h2 {
+  color: #FF6347;
+}
+
 
 
 

@@ -8,6 +8,7 @@ import ListarManutencao from "./ListarManutencao.tsx";
 import Manutencao from "./Manutencao.tsx";
 import EditarUsuario from "./EditarUsuario.tsx";
 import EditarManutencao from "./EditarManutencao.tsx";
+import Dashboard from "./Dashboard.tsx";
 
 const AppRouter: React.FC = () => {
     return (
@@ -22,8 +23,8 @@ const AppRouter: React.FC = () => {
                     <Route path="/manutencao" element={<ListarManutencao />} />
                     <Route path="/manutencao/registro" element={<Manutencao />} />
                     <Route path="/manutencao/editar/:id" element={<EditarManutencao />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                 </Route>
-                
             </Routes>
         </Router>
     );
