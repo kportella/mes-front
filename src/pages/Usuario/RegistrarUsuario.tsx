@@ -11,7 +11,7 @@ const RegistrarUsuario: React.FC = () => {
         try {
             const response = await registerUser(formData);
             console.log('Usuário Cadastrado:', response.data);
-            navigate('/usuario'); // Redirect after successful registration
+            navigate('/usuario');
         } catch (error) {
             console.error('Erro ao registrar usuário:', error);
         }

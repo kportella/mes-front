@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 interface UserFormProps {
     onSubmit: (formData: any) => void;
-    initialFormData?: {      // Optional prop to handle edit case
+    initialFormData?: {
         name: string;
         email: string;
         password: string;
@@ -28,7 +28,6 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, initialFormData }) => {
     const roles = ['Técnico de Manutenção', 'Administrador', 'Financeiro', 'Backoffice'];
 
     useEffect(() => {
-        // Populate the form with initial values if it's in edit mode
         if (initialFormData) {
             setFormData(initialFormData);
         }
@@ -53,7 +52,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, initialFormData }) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validateForm()) {
-            onSubmit(formData); // Call the onSubmit function passed as a prop
+            onSubmit(formData);
         }
     };
 
@@ -107,7 +106,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, initialFormData }) => {
 
             <div className="form-actions">
                 <button type="submit" className="save-btn">
-                    {initialFormData ? 'Atualizar' : 'Registrar'} {/* Change button text based on mode */}
+                    {initialFormData ? 'Atualizar' : 'Registrar'}
                 </button>
             </div>
         </form>

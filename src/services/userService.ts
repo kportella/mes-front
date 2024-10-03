@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3000';
 
 const getToken = () => {
-    return localStorage.getItem('accessToken'); // Assuming you store your JWT token in local storage
+    return localStorage.getItem('accessToken');
 };
 
 export const registerUser = async (formData: any) => {
@@ -12,12 +12,15 @@ export const registerUser = async (formData: any) => {
 
 export const getAllUsers = async () => {
     const response = await axios.get(`${API_URL}/users/getAllUsers`, {
+        headers: {'Authorization': `Bearer ${getToken()!.replace(/['"]+/g, '')}`}
     });
     return response.data;
 };
 
 export const getUserById = async (id: number) => {
-    const response = await axios.get(`${API_URL}/users/getAllUsers`);
+    const response = await axios.get(`${API_URL}/users/getAllUsers`, {
+        headers: {'Authorization': `Bearer ${getToken()!.replace(/['"]+/g, '')}`}
+    });
     return response.data.users.find((user: any) => user.id === id);
 };
 

@@ -1,4 +1,3 @@
-// pages/RegistrarManutencao.tsx
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
 import ManutencaoForm from '../../components/forms/ManutencaoForm';
@@ -26,7 +25,7 @@ const RegistrarManutencao: React.FC = () => {
         try {
             await createMaintenance(formData);
             console.log('Maintenance created:', formData);
-            navigate('/manutencao'); // Navigate back to maintenance list
+            navigate('/manutencao');
         } catch (error) {
             console.error('Error creating maintenance:', error);
         }

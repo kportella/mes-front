@@ -1,113 +1,65 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import {useAuth} from "../contexts/AuthContext.tsx";
+import { useAuth } from '../contexts/AuthContext';
+import { loginUser } from '../services/authService';
 
 type LoginFormInputs = {
     email: string;
     password: string;
 };
 
-interface Auth {
-    accessToken: string;
-    expiresIn: string;
-    username: string;
-}
-
 const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
     const [responseMessage, setResponseMessage] = useState<string>('');
     const navigate = useNavigate();
-    const { login  } = useAuth();
+    const { login } = useAuth();
 
-    const onSubmit = (data: LoginFormInputs) => {
-        console.log(data);         
-            axios.default.post<Auth>('http://localhost:3000/auth/login', data)
-                .then((response) => {
-                    setResponseMessage(`Success! Data submitted: ${JSON.stringify(response.data)}`);
-                    console.log(response);
-                    
-                    if (response.status === 201) {
-                        login(response.data.accessToken);
-                        navigate('/usuario');
-                    }
-                    
-                    setResponseMessage(`Error: ${response.data}`);
-                    })  
-                                    .catch((            error) => {setResponseMessage(`Error: ${error.message}`);})
+    const onSubmit = async (data: LoginFormInputs) => {
+        try {
+            const response = await loginUser(data.email, data.password);
+            setResponseMessage(`Success! Welcome ${response.username}`);
 
-
-    }
+            // Perform login using the context
+            login(response.accessToken);
+            navigate('/usuario');
+        } catch (error) {
+            setResponseMessage(`Error: ${(error as Error).message}`);
+        }
+    };
 
     return (
-        <div style={styles.container}>
+        <div className="container">
             <h2>Login</h2>
-            <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
-                <div style={styles.inputGroup}>
+            <form onSubmit={handleSubmit(onSubmit)} className="form">
+                <div className="input-group">
                     <label>Email:</label>
                     <input
-                        {...register("email", {
-                            required: "Email is required",
-                            pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" }
+                        {...register('email', {
+                            required: 'Email is required',
+                            pattern: { value: /^\S+@\S+$/i, message: 'Invalid email format' },
                         })}
-                        style={styles.input}
+                        className="input"
                     />
-                    {errors.email && <p style={styles.error}>{errors.email.message}</p>}
+                    {errors.email && <p className="error">{errors.email.message}</p>}
                 </div>
 
-                <div style={styles.inputGroup}>
+                <div className="input-group">
                     <label>Password:</label>
                     <input
                         type="password"
-                        {...register("password", { required: "Password is required" })}
-                        style={styles.input}
+                        {...register('password', { required: 'Password is required' })}
+                        className="input"
                     />
-                    {errors.password && <p style={styles.error}>{errors.password.message}</p>}
+                    {errors.password && <p className="error">{errors.password.message}</p>}
                 </div>
 
-                <button type="submit" style={styles.button}>Login</button>
+                <button type="submit" className="button">Login</button>
             </form>
 
             {responseMessage && <p>{responseMessage}</p>}
         </div>
     );
-};
-
-// Inline CSS styles
-const styles = {
-    container: {
-        display: 'flex',
-        flexDirection: 'column' as 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column' as 'column',
-        width: '300px',
-    },
-    inputGroup: {
-        marginBottom: '20px',
-    },
-    input: {
-        padding: '10px',
-        fontSize: '16px',
-        width: '100%',
-    },
-    button: {
-        padding: '10px',
-        fontSize: '16px',
-        backgroundColor: '#007bff',
-        color: '#fff',
-        border: 'none',
-        cursor: 'pointer',
-    },
-    error: {
-        color: 'red',
-        fontSize: '12px',
-    },
 };
 
 export default Login;

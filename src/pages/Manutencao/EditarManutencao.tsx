@@ -1,4 +1,3 @@
-// pages/EditarManutencao.tsx
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 import ManutencaoForm from '../../components/forms/ManutencaoForm';
@@ -19,7 +18,7 @@ const EditarManutencao: React.FC = () => {
                 descricao: manutencao.descricao,
                 tipoManutencao: manutencao.tipoManutencao,
                 criticidade: manutencao.criticidade,
-                tecnico: manutencao.tecnico.name,
+                tecnico: manutencao.tecnico.id,
                 dataAbertura: manutencao.dataAbertura,
                 dataFechamento: manutencao.dataFechamento,
                 status: manutencao.status,

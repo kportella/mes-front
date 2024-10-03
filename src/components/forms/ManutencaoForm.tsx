@@ -1,9 +1,8 @@
-// components/forms/ManutencaoForm.tsx
 import React, { useState, useEffect } from 'react';
 import { getTechnicians } from '../../services/manutencaoService';
 
 interface ManutencaoFormProps {
-    initialFormData: any;
+    initialFormData?: any;
     onSubmit: (formData: any) => void;
 }
 
@@ -12,7 +11,22 @@ interface UserManutencao {
     name: string;
 }
 
-const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ initialFormData, onSubmit }) => {
+const defaultFormData = {
+    titulo: '',
+    descricao: '',
+    tipoManutencao: 'Selecione',
+    criticidade: 'Alta',
+    tecnico: 'Selecione',
+    dataAbertura: '',
+    dataFechamento: '',
+    status: 'Aberto',
+    equipamento: 'Equipamento Cópias',
+    localizacao: 'Setor ABC',
+    modelo: 'Premium'
+};
+
+
+const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ initialFormData = defaultFormData, onSubmit }) => {
     const [localFormData, setLocalFormData] = useState(initialFormData);
     const [users, setUsers] = useState<UserManutencao[] | null>([]);
 
@@ -23,6 +37,12 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ initialFormData, onSubm
         };
         fetchTechnicians();
     }, []);
+
+    useEffect(() => {
+        if (initialFormData) {
+            setLocalFormData(initialFormData);  // Update local form data when the initial data is available
+        }
+    }, [initialFormData]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
@@ -43,10 +63,19 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ initialFormData, onSubm
                 <h3>Identificação</h3>
                 <div className="form-group">
                     <label htmlFor="titulo">Título</label>
-                    <input type="text" id="titulo" value={localFormData.titulo} onChange={handleInputChange} />
+                    <input
+                        type="text"
+                        id="titulo"
+                        value={localFormData.titulo}
+                        onChange={handleInputChange}
+                    />
 
                     <label htmlFor="descricao">Descrição</label>
-                    <textarea id="descricao" value={localFormData.descricao} onChange={handleInputChange}></textarea>
+                    <textarea
+                        id="descricao"
+                        value={localFormData.descricao}
+                        onChange={handleInputChange}
+                    ></textarea>
                 </div>
             </div>
 
@@ -79,11 +108,13 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ initialFormData, onSubm
                 <div className="form-group dates">
                     <div>
                         <label htmlFor="dataAbertura">Data Abertura</label>
-                        <input type="date" id="dataAbertura" value={localFormData.dataAbertura} onChange={handleInputChange} />
+                        <input type="date" id="dataAbertura" value={localFormData.dataAbertura}
+                               onChange={handleInputChange}/>
                     </div>
                     <div>
                         <label htmlFor="dataFechamento">Data Fechamento</label>
-                        <input type="date" id="dataFechamento" value={localFormData.dataFechamento} onChange={handleInputChange} />
+                        <input type="date" id="dataFechamento" value={localFormData.dataFechamento}
+                               onChange={handleInputChange}/>
                     </div>
                 </div>
 
@@ -100,13 +131,13 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ initialFormData, onSubm
                 <h3>Equipamento</h3>
                 <div className="form-group">
                     <label htmlFor="equipamento">Nome</label>
-                    <input type="text" id="equipamento" value={localFormData.equipamento} readOnly />
+                    <input type="text" id="equipamento" value={localFormData.equipamento} readOnly/>
 
                     <label htmlFor="localizacao">Localização</label>
-                    <input type="text" id="localizacao" value={localFormData.localizacao} readOnly />
+                    <input type="text" id="localizacao" value={localFormData.localizacao} readOnly/>
 
                     <label htmlFor="modelo">Modelo</label>
-                    <input type="text" id="modelo" value={localFormData.modelo} readOnly />
+                    <input type="text" id="modelo" value={localFormData.modelo} readOnly/>
                 </div>
             </div>
 
