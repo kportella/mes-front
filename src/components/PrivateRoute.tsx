@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { useAuth } from '../src/AuthContext';
+import { useAuth } from '../contexts/AuthContext.tsx';
 
 
 const PrivateRoute = () => {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import * as axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import {useAuth} from "./AuthContext.tsx";
+import {useAuth} from "../contexts/AuthContext.tsx";
 
 type LoginFormInputs = {
     email: string;

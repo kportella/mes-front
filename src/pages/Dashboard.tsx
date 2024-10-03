@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';  // Import required components
 import ChartDataLabels from 'chartjs-plugin-datalabels';  // Import the DataLabels plugin
-import Sidebar from './Sidebar';
+import Sidebar from '../components/Sidebar.tsx';
 
 Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 

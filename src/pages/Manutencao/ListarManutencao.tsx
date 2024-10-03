@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Sidebar from "./Sidebar.tsx";
+import Sidebar from "../../components/Sidebar.tsx";
 import {useNavigate} from "react-router-dom";
 
 interface MaintenanceOrder {
