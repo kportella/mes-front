@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';  // Import required components
+import ChartDataLabels from 'chartjs-plugin-datalabels';  // Import the DataLabels plugin
 import Sidebar from './Sidebar';
 
-Chart.register(ArcElement, Tooltip, Legend);
+Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const Dashboard: React.FC = () => {
 
     const [activeUsersCount, setActiveUsersCount] = useState<number>(0);
     const [deactivateUserCount, setdeactivateUserCount] = useState<number>(0);
+    const [manutencaoData, setManutencaoData] = useState<{ status: string; count: number }[]>([]);
 
 
     useEffect(() => {
@@ -22,12 +24,15 @@ const Dashboard: React.FC = () => {
                     }
                 });
 
-                const responseManutencoes = await fetch("http://localhost:3000/auth/getAllManutencoes", {
+                const responseManutencoes = await fetch("http://localhost:3000/maintenance/countStatus", {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
+
+                const dataManutencoes = await responseManutencoes.json();
+                setManutencaoData(dataManutencoes);
 
                 const dataUsers = await responseUsers.json();
                 const quantidadeAtivos = dataUsers.users.filter((user: { ativo: boolean }) => user.ativo);
@@ -43,29 +48,56 @@ const Dashboard: React.FC = () => {
     }, []);
     
     
-    const data = {
-        labels: ['Aberto', 'Em andamento', 'Aguardando peça', 'Fechado', 'Cancelado'],
+    // const data = {
+    //     labels: manutencaoData.map(item => item.status),
+    //     datasets: [
+    //         {
+    //             label: 'Manutenção',
+    //             data: manutencaoData.map(item => item.count),
+    //             backgroundColor: [
+    //                 '#FF6384',
+    //                 '#36A2EB',
+    //                 '#FFCE56',
+    //                 '#4BC0C0',
+    //                 '#9966FF',
+    //             ],
+    //             hoverBackgroundColor: [
+    //                 '#FF6384',
+    //                 '#36A2EB',
+    //                 '#FFCE56',
+    //                 '#4BC0C0',
+    //                 '#9966FF',
+    //             ],
+    //         },
+    //     ],
+    // };
+
+    const pieChartData = {
+        labels: manutencaoData.map(item => item.status),  // Extract status labels
         datasets: [
             {
-                label: 'Manutenção',
-                data: [4, 12, 8, 6, 7],
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#4BC0C0',
-                    '#9966FF',
-                ],
-                hoverBackgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#4BC0C0',
-                    '#9966FF',
-                ],
+                label: 'Manutenção Status',
+                data: manutencaoData.map(item => item.count),  // Extract counts for each status
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
             },
         ],
     };
+
+    // Chart options with DataLabels to show counts inside the pie chart
+    const pieChartOptions = {
+        plugins: {
+            datalabels: {
+                color: '#000', // Text color
+                font: {
+                    size: 36, // Font size for the labels
+                    weight: 'bold'
+                },
+                formatter: (value: number) => value,  // Show the count value
+            },
+        },
+    };
+
 
     return (
         <div className="main-content">
@@ -89,7 +121,7 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div className="widget">
                         <h3>Manutenção</h3>
-                        <Pie data={data} />
+                        <Pie data={pieChartData} options={pieChartOptions} />
                     </div>
                 </div>
         </div>
